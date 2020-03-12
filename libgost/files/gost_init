@@ -1,0 +1,22 @@
+#!/bin/sh
+if [ ! -f /etc/ssl/openssl.bak ]; then
+  echo 'openssl_conf = openssl_def' >/etc/ssl/openssl.new
+  echo '' >>/etc/ssl/openssl.new
+  echo '[ openssl_def ]' >>/etc/ssl/openssl.new
+  echo 'engines = engine_section' >>/etc/ssl/openssl.new
+  echo '' >>/etc/ssl/openssl.new
+  cat /etc/ssl/openssl.cnf >>/etc/ssl/openssl.new
+  echo '' >>/etc/ssl/openssl.new
+  echo '[ engine_section ]' >>/etc/ssl/openssl.new
+  echo 'gost = gost_section' >>/etc/ssl/openssl.new
+  echo '' >>/etc/ssl/openssl.new
+  echo '[ gost_section ]' >>/etc/ssl/openssl.new
+  echo 'engine_id = gost' >>/etc/ssl/openssl.new
+  echo 'dynamic_path = /usr/lib/engines-1.1/gost.so' >>/etc/ssl/openssl.new
+  echo 'default_algorithms = ALL' >>/etc/ssl/openssl.new
+  echo 'CRYPT_PARAMS = id-Gost28147-89-CryptoPro-A-ParamSet' >>/etc/ssl/openssl.new
+  echo '' >>/etc/ssl/openssl.new
+  mv /etc/ssl/openssl.cnf /etc/ssl/openssl.bak
+  mv /etc/ssl/openssl.new /etc/ssl/openssl.cnf
+fi
+exit 0
