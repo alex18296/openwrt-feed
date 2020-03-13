@@ -223,7 +223,7 @@ ca.crt
 Строим конфигурацию клиента
   
 ```
-~$ cat <<EOF >>client.conf
+~$ cat <<EOF >client.conf
 client
 dev tun
 proto udp
